@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# landing-nextjs-starter
 
-## Getting Started
+The default starting point for landing-tier projects on founding.dev.
 
-First, run the development server:
+Next.js 16 (app router) + Tailwind v4 + TypeScript. Single landing page,
+deliberately small. Content is hoisted to one file so editing copy is
+one-jump and the page composition is obvious.
+
+## Where to edit what
+
+| Want to change…           | File                          |
+| ------------------------- | ----------------------------- |
+| Hero headline / CTA copy  | `src/content/site.ts`         |
+| Feature card copy         | `src/content/site.ts`         |
+| Brand name + page title   | `src/content/site.ts`         |
+| Layout / spacing / colors | `src/components/{Hero,Features,CTA,Footer}.tsx` |
+| Page composition          | `src/app/page.tsx`            |
+| Global styles             | `src/app/globals.css`         |
+
+If you are an AI agent reading this: 90 % of edits will be to
+`src/content/site.ts`. Component layout only changes when the user asks for
+a new section or a structural rearrangement.
+
+## Running locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Opens on `http://localhost:3000`. Set `PORT` to override; the dev script
+already binds to `0.0.0.0` so it works inside containers / Fly machines
+without extra flags.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Building for production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+## Why this template
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+It is the minimum shape that converts (hero / features / proof / CTA /
+footer) with no extra dependencies. Add a real SaaS feature → graduate to
+a fullstack template. Stay marketing-only → stay here.
