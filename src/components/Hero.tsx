@@ -1,7 +1,16 @@
 import { site } from '@/content/site';
 
 export function Hero() {
-  const { eyebrow, title, subtitle, primaryCta, secondaryCta } = site.hero;
+  // Defensive destructure with safe defaults — see Features.tsx / CTA.tsx
+  // for the full rationale. The hero is the most-edited section, so it
+  // gets the strongest guard.
+  const {
+    eyebrow = '',
+    title = '',
+    subtitle = '',
+    primaryCta,
+    secondaryCta,
+  } = site.hero ?? {};
 
   return (
     <section className="relative overflow-hidden">
@@ -11,26 +20,36 @@ export function Hero() {
             {eyebrow}
           </span>
         )}
-        <h1 className="mt-6 text-4xl sm:text-6xl font-semibold tracking-tight text-balance">
-          {title}
-        </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-lg sm:text-xl text-foreground/70 text-balance">
-          {subtitle}
-        </p>
-        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
-          <a
-            href={primaryCta.href}
-            className="inline-flex items-center justify-center rounded-md bg-foreground px-6 py-3 text-sm font-medium text-background hover:bg-foreground/90 transition-colors"
-          >
-            {primaryCta.label}
-          </a>
-          <a
-            href={secondaryCta.href}
-            className="inline-flex items-center justify-center rounded-md border border-foreground/15 px-6 py-3 text-sm font-medium hover:bg-foreground/5 transition-colors"
-          >
-            {secondaryCta.label}
-          </a>
-        </div>
+        {title && (
+          <h1 className="mt-6 text-4xl sm:text-6xl font-semibold tracking-tight text-balance">
+            {title}
+          </h1>
+        )}
+        {subtitle && (
+          <p className="mx-auto mt-6 max-w-2xl text-lg sm:text-xl text-foreground/70 text-balance">
+            {subtitle}
+          </p>
+        )}
+        {(primaryCta || secondaryCta) && (
+          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
+            {primaryCta?.href && primaryCta?.label && (
+              <a
+                href={primaryCta.href}
+                className="inline-flex items-center justify-center rounded-md bg-foreground px-6 py-3 text-sm font-medium text-background hover:bg-foreground/90 transition-colors"
+              >
+                {primaryCta.label}
+              </a>
+            )}
+            {secondaryCta?.href && secondaryCta?.label && (
+              <a
+                href={secondaryCta.href}
+                className="inline-flex items-center justify-center rounded-md border border-foreground/15 px-6 py-3 text-sm font-medium hover:bg-foreground/5 transition-colors"
+              >
+                {secondaryCta.label}
+              </a>
+            )}
+          </div>
+        )}
       </div>
       <div
         aria-hidden
